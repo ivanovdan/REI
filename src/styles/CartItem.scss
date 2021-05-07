@@ -1,4 +1,4 @@
-@import '/globals/globals.scss';
+@import './globals/globals.scss';
 
 .item {
   display: flex;
@@ -81,21 +81,21 @@
       }
 
       &--pricing {
-          display: flex;
-          border-top: 1px solid $light-grey;
-          padding-top: 12px;
+        display: flex;
+        border-top: 1px solid $light-grey;
+        padding-top: 12px;
 
-          @media screen {
-            @media (min-width: $breakpoint-md) {
-              border-top: none;
-              padding-top: 0;
-            }
+        @media screen {
+          @media (min-width: $breakpoint-md) {
+            border-top: none;
+            padding-top: 0;
           }
+        }
 
-          & > div {
-            width: calc(100% / 3);
-            text-align: right;
-          }
+        & > div {
+          width: calc(100% / 3);
+          text-align: right;
+        }
       }
     }
 

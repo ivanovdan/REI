@@ -2,18 +2,12 @@
   <div class="item">
     <div class="item__details">
       <figure class="item__details__image">
-        <img
-          :src="productImage"
-          alt=""
-        >
+        <img :src="productImage" alt="" />
       </figure>
       <div class="item__details__item">
-        <a
-          href="#"
-          class="item__details__name"
-        >
+        <a href="#" class="item__details__name">
           <span class="item__details__brand">{{ item.brand }}</span>
-          Deva 60 Pack - Women's
+          {{ item.name }}
         </a>
         <span class="item__details__color">{{ item.color }}</span>
         <span class="item__details__size">{{ item.size }}</span>
@@ -25,6 +19,7 @@
             type="button"
             name=""
             class="btn btn--small"
+            @click="saveForLater"
           >
             Save for later
           </button>
@@ -33,6 +28,7 @@
             type="button"
             name=""
             class="btn btn--small"
+            @click="remove"
           >
             Remove
           </button>
@@ -57,7 +53,7 @@
               name=""
               pattern="[0-9]*"
               :value="item.quantity"
-            >
+            />
             <button
               :id="`increment-${item.sku}`"
               type="button"
@@ -83,8 +79,10 @@
               :name="inputName"
               value=""
               checked
+            />
+            <label :for="`item-ship-${item.id}`"
+              >Ship - Free for orders over $50</label
             >
-            <label :for="`item-ship-${item.id}`">Ship - Free for orders over $50</label>
           </div>
 
           <div class="item__options__row">
@@ -93,8 +91,10 @@
               type="radio"
               :name="inputName"
               value=""
+            />
+            <label :for="`item-pick-up-${item.id}`"
+              >Pick up in store - Free</label
             >
-            <label :for="`item-pick-up-${item.id}`">Pick up in store - Free</label>
             <a href="#">Find a store near you</a>
           </div>
         </fieldset>
@@ -104,11 +104,11 @@
 </template>
 
 <script>
-import PlusIcon from '../assets/icons/PlusIcon.vue';
-import MinusIcon from '../assets/icons/MinusIcon.vue';
+import PlusIcon from "../assets/icons/PlusIcon.vue";
+import MinusIcon from "../assets/icons/MinusIcon.vue";
 
 export default {
-  name: 'CartItem',
+  name: "CartItem",
   components: {
     PlusIcon,
     MinusIcon,
@@ -153,7 +153,7 @@ export default {
     Emits an event to increase the item quantity by 1
     */
     incrementQuantity() {
-      this.$emit('increment-quantity', this.item.id);
+      this.$emit("increment-quantity", this.item.id);
     },
 
     /*
@@ -161,12 +161,24 @@ export default {
     Emits an event to decrease the item quantity by 1
     */
     decrementQuantity() {
-      this.$emit('decrement-quantity', this.id);
+      this.$emit("decrement-quantity", this.item.id);
+    },
+    /* 
+    Remove item from cart 
+    */
+    remove() {
+      this.$emit("remove", this.item.id);
+    },
+    /*
+    Move itme from cart into saved for later
+    */
+    saveForLater() {
+      this.$emit("save-for-later", this.item.id);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/CartItem.scss';
+@import "../styles/CartItem.scss";
 </style>
